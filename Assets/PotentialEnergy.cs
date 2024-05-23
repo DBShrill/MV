@@ -1,30 +1,24 @@
 using UnityEngine;
+using UnityEngine.UI; // Import for UI elements
+using static System.Math;
 
 public class PotentialEnergy : MonoBehaviour
 {
     private Rigidbody rb; // Single Rigidbody reference for clarity
-    private const float GravitationalConstant = 6.67e-11f; // Use 'const' for clarity
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>(); // Get Rigidbody component
-    }
+    private const float G = 6.67e-11f; // Use 'const' for clarity
+    public Slider potentialEnergySlider; // Reference to your slider UI element
 
     void Update()
     {
-        if (rb != null) // Check if Rigidbody exists before calculations
-        {
-            Vector3 distanceVector = transform.position;
-            float distance = distanceVector.magnitude;
+        Vector3 distanceVector = transform.position;
+        float distance = distanceVector.magnitude;
+        // Assuming 'mass' is another variable representing object's mass:
+        float potentialEnergy = -G * 2000 * 20 / distance; // Calculate potential energy
 
-            // Assuming 'mass' is another variable representing object's mass:
-            float potentialEnergy = -GravitationalConstant * rb.mass / distance; // Calculate potential energy
+        // Update slider value based on potential energy (assuming range is 0-1)
+        potentialEnergySlider.value = Mathf.Clamp01(System.Math.Abs(potentialEnergy));
 
-            // Use the calculated 'potentialEnergy' for further computations or visualization
-        }
-        else
-        {
-            Debug.LogError("PotentialEnergy script requires a Rigidbody component on the GameObject!");
+        // Use the calculated 'potentialEnergy' for further computations or visualization
         }
     }
-}
+

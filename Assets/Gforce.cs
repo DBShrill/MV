@@ -24,10 +24,13 @@ public class Gforce : MonoBehaviour {
 				Vector3 distanceV = this.transform.position - hit.gameObject.transform.position;
 				float distance = distanceV.magnitude;
 				rb = hit.gameObject.GetComponent<Rigidbody> ();
-				Vector3 forcee = (rg.mass + rb.mass / Mathf.Pow (distance, 2)) * distanceV.normalized;
+				Vector3 forcee = (rg.mass * rb.mass / Mathf.Pow (distance, 2)) * distanceV.normalized;
 				rb.AddForce (forcee);
 
                 Debug.DrawRay(transform.position, -distanceV * 0.5f, Color.blue);  // Adjust factor to control arrow length
+
+                Debug.Log("rg mass: " + rg.mass);
+                Debug.Log("rb mass: " + rb.mass);
 			}
 		}
 	}

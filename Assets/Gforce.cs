@@ -6,6 +6,7 @@ public class Gforce : MonoBehaviour {
 	Rigidbody rg,rb;
 	public Vector3 forcee;
     public Vector3 distanceV;
+    public float scale_factor;
 
 	void Start()
 	{
@@ -24,13 +25,10 @@ public class Gforce : MonoBehaviour {
 				Vector3 distanceV = this.transform.position - hit.gameObject.transform.position;
 				float distance = distanceV.magnitude;
 				rb = hit.gameObject.GetComponent<Rigidbody> ();
-				Vector3 forcee = (rg.mass * rb.mass / Mathf.Pow (distance, 2)) * distanceV.normalized;
+				Vector3 forcee =  scale_factor * (rg.mass * rb.mass / Mathf.Pow (distance, 2)) * distanceV.normalized;
 				rb.AddForce (forcee);
 
                 Debug.DrawRay(transform.position, -distanceV * 0.5f, Color.blue);  // Adjust factor to control arrow length
-
-                Debug.Log("rg mass: " + rg.mass);
-                Debug.Log("rb mass: " + rb.mass);
 			}
 		}
 	}
